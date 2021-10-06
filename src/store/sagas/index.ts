@@ -16,7 +16,6 @@ import {
 import {
   setLoading,
   setUsers,
-  setError,
   setUser,
   addUser,
   updateUser,
