@@ -22,7 +22,10 @@ export const ButtonEdit = styled.button`
     transform: scale(1.1);
   }
 `;
-export const ButtonDelete = styled.button`
+export const ButtonDelete = styled.button<{
+  color?: string;
+  onClick?: Function;
+}>`
   color: white;
   padding: 25%;
   background-color: #ff3300;
@@ -46,9 +49,8 @@ export const Table = styled.div`
   margin: 10px auto;
   min-width: 290px;
   width: 50%;
-  background: white;
+  background-color: rgba(0, 0, 0, 0.05);
   height: auto;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), 0 0px 40px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 `;
 

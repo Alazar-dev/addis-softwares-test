@@ -51,7 +51,7 @@ export const updateUserInfo = async (data: Partial<IUser>): Promise<IUser> => {
   }
 };
 export const deleteUserById = async (id: string) => {
-  const res = await axiosInstance.delete(`/users/${id}`);
+  const res = await axiosInstance.delete(`/users/${id}\\`);
   if (res.status === 200 && res.data.success) {
     const user: IUser = res.data.data;
     return user;

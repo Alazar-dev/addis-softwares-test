@@ -1,71 +1,40 @@
-import React, { useEffect } from "react";
-import Modal from "react-modal";
-import {
-  ButtonEdit,
-  Container,
-  TData,
-  THead,
-  Title,
-  DIV,
-  ButtonAdd,
-  ButtonDelete,
-  Table,
-} from "../../components/Layouts";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usersSelector } from "../../store/reducers";
-import { IUser } from "../../store/types";
+import { userSelector, usersSelector } from "../../store/reducers";
 import { ActionConstant } from "../../store/actions/types";
-import { useState } from "react";
-import AddForm from "../../components/modals/AddForm";
+import { IUser } from "../../store/types";
+import Employees from "../../components/Employees";
 import EditForm from "../../components/modals/EditForm";
 import DeleteForm from "../../components/modals/DeleteForm";
+import { Container, Table, THead, Title } from "../../components/Layouts";
+import AddForm from "../../components/modals/AddForm";
 
-const Employee: React.FC<{
-  user: IUser;
-  deleteHandler: (user: IUser) => void;
-  editHandler: (user: IUser) => void;
-}> = ({ user }) => {
+function Home() {
   const dispatch = useDispatch();
   const users = useSelector(usersSelector);
+  const user = useSelector(userSelector);
 
-  const [addModalOpen, setAddModal] = useState(false);
-  const [editModalOpen, setEditModal] = useState(false);
-  const [deleteModalOpen, setDeleteModal] = useState(false);
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
 
-  function openAddModal() {
-    setAddModal(true);
-  }
+  useEffect(() => {
+    dispatch({ type: ActionConstant.SAGA_GET_USERS });
+  }, [dispatch]);
 
-  function closeAddModal() {
-    setAddModal(false);
-  }
-
-  function openEditModal() {
-    setEditModal(true);
-    editHandler(user);
-  }
-
-  function closeEditModal() {
-    setEditModal(false);
-  }
-
-  function openDeleteModal() {
-    setDeleteModal(true);
-    deleteHandler(user);
-  }
-
-  function closeDeleteModal() {
-    setDeleteModal(false);
-  }
-
-  function afterOpenModal() {}
+  const confirmDelete = () => {
+    dispatch({
+      type: ActionConstant.SAGA_DELETE_USER,
+      payload: user?._id,
+    });
+    setDeleteOpen(false);
+  };
 
   const deleteHandler = (user: IUser) => {
     dispatch({
       type: ActionConstant.SAGA_SET_USER,
       payload: user,
     });
-    setDeleteModal(true);
+    setDeleteOpen(true);
   };
 
   const editHandler = (user: IUser) => {
@@ -73,79 +42,35 @@ const Employee: React.FC<{
       type: ActionConstant.SAGA_SET_USER,
       payload: user,
     });
-    setEditModal(true);
+    setUpdateOpen(true);
   };
-
-  useEffect(() => {
-    dispatch({ type: ActionConstant.SAGA_GET_USERS });
-  }, [dispatch]);
-
   return (
-    <>
-      <Title>Employee List</Title>
+    <div>
       <Table>
+        <Title>Employee List</Title>
         <Container>
           <THead>Full Name</THead>
           <THead>Date of Birth</THead>
           <THead>Gender</THead>
           <THead>Salary</THead>
         </Container>
-        {users.map((user) => (
-          <Container>
-            <TData key={user._id}>{user.name}</TData>
-            <TData key={user._id}>{user.dateOfBirth}</TData>
-            <TData key={user._id}>{user.gender}</TData>
-            <TData key={user._id}>{user.salary}</TData>
-            <TData>
-              <ButtonEdit onClick={openEditModal}>Edit</ButtonEdit>
-            </TData>
-            <TData>
-              <ButtonDelete onClick={openDeleteModal}>Delete</ButtonDelete>
-            </TData>
-          </Container>
+        {users.map((usr) => (
+          <Employees
+            editHandler={editHandler}
+            deleteHandler={deleteHandler}
+            user={usr}
+          />
         ))}
       </Table>
-      <DIV>
-        <ButtonAdd onClick={openAddModal}>Add New</ButtonAdd>
-      </DIV>
-      <Modal
-        isOpen={addModalOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeAddModal}
-        style={customStyles}
-      >
-        <AddForm />
-      </Modal>
-      <Modal
-        isOpen={editModalOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeEditModal}
-        style={customStyles}
-      >
-        <EditForm />
-      </Modal>
-      <Modal
-        isOpen={deleteModalOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeDeleteModal}
-        style={customStyles}
-      >
-        <DeleteForm />
-      </Modal>
-    </>
+      <AddForm />
+      <DeleteForm
+        confirmDelete={confirmDelete}
+        open={deleteOpen}
+        setOpen={setDeleteOpen}
+      />
+      <EditForm open={updateOpen} setOpen={setUpdateOpen} />
+    </div>
   );
-};
+}
 
-export default Employee;
-
-const customStyles = {
-  content: {
-    width: "30%",
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+export default Home;
