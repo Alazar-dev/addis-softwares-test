@@ -4,6 +4,12 @@ export const DIV = styled.div`
   display: flex;
   justify-content: center;
 `;
+export const DIVColumn = styled.div`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  flex-direction: column;
+`;
 export const ButtonAdd = styled.button`
   color: white;
   background-color: cadetblue;
@@ -27,7 +33,7 @@ export const ButtonDelete = styled.button<{
   onClick?: Function;
 }>`
   color: white;
-  padding: 25%;
+  padding: 8.5px 25%;
   background-color: #ff3300;
   border: none;
   border-radius: 5px;
@@ -66,16 +72,24 @@ export const Container = styled.div`
   display: flex;
 `;
 
-export const AddForm = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Input = styled.input`
+  align-self: center;
   padding: 15px 6px;
   margin: 12px 0;
-  width: 100%;
+  width: 75%;
   outline: 1px #8284ff inset;
   border: none;
   cursor: pointer;
+`;
+
+export const Label = styled.p`
+  font-weight: bold;
+  margin-left: 11%;
+`;
+
+export const Select = styled.select`
+  font-weight: bold;
+  margin-left: 11%;
+  width: 78%;
+  padding: 2% 0;
 `;

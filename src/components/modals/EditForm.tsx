@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Input } from "../Layouts";
+import { Input, Label, Select } from "../Layouts";
 import { IUser } from "../../store/types";
 import { useForm } from "react-hook-form";
 import { IUserBase } from "../../store/types";
@@ -60,29 +60,25 @@ export const EditForm: React.FC<{
 
   return (
     <Modal setOpen={setOpen} open={open}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        style={{ display: "flex", flexDirection: "column" }}
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h1>Edit Form</h1>
-        <label>Full Name</label>
+        <Label>Full Name</Label>
         <Input {...register("name", { required: true })} />
 
-        <label>Date of birth</label>
+        <Label>Date of birth</Label>
         <Input type="date" {...register("dateOfBirth", { required: true })} />
 
-        <label>Gender</label>
-        <select
-          style={{
-            padding: "15px 6px",
-            border: "none",
-            outline: "1px #8284ff inset",
-          }}
-          {...register("gender")}
-        >
+        <Label>Gender</Label>
+        <Select {...register("gender")}>
           <option value="">Select gender ...</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
-        </select>
+        </Select>
 
-        <label> Salary</label>
+        <Label> Salary</Label>
         <Input {...register("salary", { required: true })} />
         {errors.salary && <span>Salary is required</span>}
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-const Modal = styled.div`
+const DeleteModal = styled.div`
   z-index: auto;
   position: fixed;
   top: ${({ show }: { show: boolean }) => (show ? "0px" : "-1000px")};
@@ -14,10 +14,11 @@ const Modal = styled.div`
   background: rgba(0, 0, 0, 0.4);
 `;
 const ModalContainer = styled.div<{ flat?: boolean }>`
-  max-width: 600px;
+  max-width: 490px;
   padding: 1%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 32px;
   position: relative;
   overflow-y: auto;
@@ -38,11 +39,11 @@ export const ModalDialogue: React.FC<{
 }> = ({ open, children, setOpen, flat }) => {
   return (
     <div onClick={() => setOpen(false)}>
-      <Modal show={open}>
+      <DeleteModal show={open}>
         <ModalContainer flat={flat} onClick={(e) => e.stopPropagation()}>
           {children}
         </ModalContainer>
-      </Modal>
+      </DeleteModal>
     </div>
   );
 };

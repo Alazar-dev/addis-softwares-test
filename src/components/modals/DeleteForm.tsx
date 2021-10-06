@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Input } from "../Layouts";
-import Modal from "../Modal";
+import { ButtonDelete, TData, DIVColumn } from "../Layouts";
+import DeleteModal from "../DeleteModal";
 import { useSelector } from "react-redux";
 import { doneSelector, loadingSelector } from "../../store/reducers";
 
@@ -23,9 +23,12 @@ export const DeleteForm: React.FC<{
   };
 
   return (
-    <Modal setOpen={setOpen} open={open}>
-      <Input type="button" onClick={handleClick} />
-    </Modal>
+    <DeleteModal setOpen={setOpen} open={open}>
+      <DIVColumn>
+        <TData>Are you sure you wanna delete?</TData>
+        <ButtonDelete onClick={handleClick}>Delete</ButtonDelete>
+      </DIVColumn>
+    </DeleteModal>
   );
 };
 
