@@ -24,7 +24,7 @@ const Employee: React.FC<{
   user: IUser;
   deleteHandler: (user: IUser) => void;
   editHandler: (user: IUser) => void;
-}> = ({ user, deleteHandler, editHandler }) => {
+}> = ({ user }) => {
   const dispatch = useDispatch();
   const users = useSelector(usersSelector);
 
@@ -59,6 +59,22 @@ const Employee: React.FC<{
   }
 
   function afterOpenModal() {}
+
+  const deleteHandler = (user: IUser) => {
+    dispatch({
+      type: ActionConstant.SAGA_SET_USER,
+      payload: user,
+    });
+    setDeleteModal(true);
+  };
+
+  const editHandler = (user: IUser) => {
+    dispatch({
+      type: ActionConstant.SAGA_SET_USER,
+      payload: user,
+    });
+    setEditModal(true);
+  };
 
   useEffect(() => {
     dispatch({ type: ActionConstant.SAGA_GET_USERS });
