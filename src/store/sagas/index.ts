@@ -120,6 +120,7 @@ export function* watchSetUser() {
 
 export function* watchAddUser() {
   yield takeLatest(ActionConstant.SAGA_ADD_USER, handleAddUser);
+  yield takeLatest(ActionConstant.SAGA_GET_USERS, handleGetUsers);
 }
 
 export function* watchUpdateUser() {
@@ -128,6 +129,7 @@ export function* watchUpdateUser() {
 
 export function* watchDeleteUser() {
   yield takeLatest(ActionConstant.SAGA_DELETE_USER, handleDeleteUser);
+  yield takeLatest(ActionConstant.SAGA_GET_USERS, handleGetUsers);
 }
 
 export function* mainSaga() {

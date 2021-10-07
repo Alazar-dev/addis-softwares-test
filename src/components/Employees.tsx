@@ -1,9 +1,9 @@
-import React from "react";
+import { FC } from "react";
 import { Container, TData, ButtonDelete, ButtonEdit } from "./Layouts";
 
 import { IUser } from "../store/types";
 
-const Employees: React.FC<{
+const Employees: FC<{
   user: IUser;
   deleteHandler: (user: IUser) => void;
   editHandler: (user: IUser) => void;
@@ -17,7 +17,7 @@ const Employees: React.FC<{
 
   return (
     <>
-      <Container id="user">
+      <Container>
         <TData>{user.name}</TData>
         <TData>{user.dateOfBirth}</TData>
         <TData>{user.gender}</TData>

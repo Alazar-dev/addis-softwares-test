@@ -42,6 +42,8 @@ export const EditForm: React.FC<{
       type: ActionConstant.SAGA_UPDATE_USER,
       payload: updateData,
     });
+    dispatch({ type: ActionConstant.SAGA_GET_USERS, payload: {} });
+    setOpen(false);
   };
 
   useEffect(() => {

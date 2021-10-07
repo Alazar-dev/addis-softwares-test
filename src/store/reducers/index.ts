@@ -69,7 +69,7 @@ export const userReducer = (
       return {
         ...state,
         users: state.users.filter(
-          (emp) => (action.payload as string) !== emp._id
+          (usr) => (action.payload as string) !== usr._id
         ),
         error: undefined,
         done: true,
@@ -82,7 +82,6 @@ export const userReducer = (
 };
 
 export const loadingSelector = (state: IUserState) => state.loading;
-export const errorSelector = (state: IUserState) => state.error;
 export const doneSelector = (state: IUserState) => state.done;
 export const userSelector = (state: IUserState) => state.user;
 export const usersSelector = (state: IUserState) => state.users;

@@ -27,8 +27,9 @@ function AddForm() {
 
   console.log(errors);
 
-  const onSubmit = (data: IUserBase) => {
-    dispatch({ type: ActionConstant.SAGA_ADD_USER, payload: data });
+  const onSubmit = async (data: IUserBase) => {
+    await dispatch({ type: ActionConstant.SAGA_ADD_USER, payload: data });
+    await dispatch({ type: ActionConstant.SAGA_GET_USERS, payload: {} });
     setOpen(false);
   };
 
