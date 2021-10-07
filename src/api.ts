@@ -10,7 +10,7 @@ export const fetchUsers = async (): Promise<IUser[]> => {
   } else if (res.data.error) {
     throw new Error(res.data.error.message);
   } else {
-    throw new Error("An Error Occurred, Try Again Later!");
+    throw new Error("Error: " + res.data.error.message);
   }
 };
 export const fetchUser = async (id: string): Promise<IUser> => {
@@ -22,7 +22,7 @@ export const fetchUser = async (id: string): Promise<IUser> => {
   } else if (res.data.error) {
     throw new Error(res.data.error.message);
   } else {
-    throw new Error("An Error Occurred, Try Again Later!");
+    throw new Error("Error: " + res.data.error.message);
   }
 };
 
@@ -35,7 +35,7 @@ export const registerUser = async (data: IUserBase): Promise<IUser> => {
   } else if (res.data.error) {
     throw new Error(res.data.error.message);
   } else {
-    throw new Error("An Error Occurred, Try Again Later!");
+    throw new Error("Error: " + res.data.error.message);
   }
 };
 export const updateUserInfo = async (data: Partial<IUser>): Promise<IUser> => {
@@ -47,17 +47,17 @@ export const updateUserInfo = async (data: Partial<IUser>): Promise<IUser> => {
   } else if (res.data.error) {
     throw new Error(res.data.error.message);
   } else {
-    throw new Error("An Error Occurred, Try Again Later!");
+    throw new Error("Error: " + res.data.error.message);
   }
 };
 export const deleteUserById = async (id: string) => {
-  const res = await axiosInstance.delete(`/users/${id}\\`);
+  const res = await axiosInstance.delete(`/users/${id}`);
   if (res.status === 200 && res.data.success) {
     const user: IUser = res.data.data;
     return user;
   } else if (res.data.error) {
     throw new Error(res.data.error.message);
   } else {
-    throw new Error("An Error Occurred, Try Again Later!");
+    throw new Error("Error: " + res.data.error.message);
   }
 };
